@@ -17,5 +17,35 @@ while True: # For the input of how many players would play this game
     else:
         print("Invalid, try again!")
 
-max_score = 50
-players_scores = 0
+max_score = 15
+players_scores = [0 for i in range(players)] # To store the each player's score
+
+while max(players_scores) < max_score: 
+    for player_idx in range(players):
+        print(f"\nNow player {player_idx+1} turn!")
+        print(f"Your total score is: {players_scores[player_idx]}\n")
+        while True:
+            isRoll = input("Would you like to roll (y/n)? ")
+            if isRoll.lower() != "y":
+                break
+            value = roll()
+            if value == 1:
+                players_scores[player_idx] = 0
+                print("You rolled a 1! Your turn is done!")
+                break
+            else:
+                players_scores[player_idx] += value
+                print(f"You rolled a: {value}")
+            print(f"Your score is {players_scores[player_idx]}")
+        
+        print(f"Your total score is {players_scores[player_idx]}")
+
+print("\nThe Game is Done!")
+print("\nThe Final Score:")
+for i in range(players):
+    print(f"Player {i+1}: {players_scores[i]}")
+
+max_player_score = max(players_scores)
+winner_idx = players_scores.index(max_player_score)
+
+print(f"\nThe winner is player {winner_idx+1} with a score of {max_player_score}!")
